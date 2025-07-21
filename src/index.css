@@ -1,0 +1,275 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* I.S.T.I Nova Paleta Profissional */
+    /* Fundo Claro */
+    --background: 210 20% 98%;
+    --foreground: 215 28% 17%;
+
+    --card: 210 20% 98%;
+    --card-foreground: 215 28% 17%;
+
+    --popover: 210 20% 98%;
+    --popover-foreground: 215 28% 17%;
+
+    /* Azul Cerúleo - Elementos Interativos */
+    --primary: 221 83% 53%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Azul Noturno - Fundos e Seções */
+    --secondary: 210 70% 16%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Cinza Suave - Bordas e Divisórias */
+    --muted: 210 17% 91%;
+    --muted-foreground: 215 14% 47%;
+
+    /* Âmbar - Cor de Ação/CTA */
+    --accent: 38 92% 50%;
+    --accent-foreground: 0 0% 0%;
+
+    /* Orange para badges secundárias */
+    --orange: 25 100% 52%;
+    --orange-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Cinza Suave para bordas */
+    --border: 210 17% 91%;
+    --input: 210 17% 91%;
+    --ring: 221 83% 53%;
+
+    /* Gradientes atualizados */
+    --gradient-primary: linear-gradient(135deg, hsl(210 70% 16%), hsl(210 70% 12%));
+    --gradient-accent: linear-gradient(135deg, hsl(38 92% 50%), hsl(38 92% 45%));
+    --gradient-hero: linear-gradient(135deg, hsl(210 70% 16%) 0%, hsl(210 70% 12%) 50%, hsl(210 70% 8%) 100%);
+
+    /* Sombras atualizadas */
+    --shadow-glow: 0 0 40px hsl(38 92% 50% / 0.3);
+    --shadow-elegant: 0 10px 30px -10px hsl(210 70% 16% / 0.3);
+
+    /* Animações */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Modo Escuro com Azul Noturno */
+    --background: 210 70% 8%;
+    --foreground: 210 20% 98%;
+
+    --card: 210 70% 10%;
+    --card-foreground: 210 20% 98%;
+
+    --popover: 210 70% 10%;
+    --popover-foreground: 210 20% 98%;
+
+    /* Azul Cerúleo mantido */
+    --primary: 221 83% 53%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Azul Noturno mais escuro */
+    --secondary: 210 70% 12%;
+    --secondary-foreground: 210 20% 98%;
+
+    --muted: 210 70% 12%;
+    --muted-foreground: 210 15% 65%;
+
+    /* Âmbar mantido */
+    --accent: 38 92% 50%;
+    --accent-foreground: 0 0% 0%;
+
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 210 20% 98%;
+
+    --border: 210 70% 12%;
+    --input: 210 70% 12%;
+    --ring: 221 83% 53%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-poppins;
+  }
+
+  /* Pause animation on hover */
+  .hover\:pause-animation:hover {
+    animation-play-state: paused;
+  }
+
+  /* Accessibility improvements */
+  [aria-label] {
+    @apply focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
+  }
+
+  /* Improved focus styles for keyboard navigation */
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2;
+  }
+
+  /* Screen reader only content */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Optimized images */
+  img {
+    @apply max-w-full h-auto;
+  }
+
+  /* Smooth scrolling for the entire page */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Responsive button utilities */
+  .btn-responsive {
+    @apply whitespace-normal text-center leading-tight min-h-[2.5rem] px-4 py-2;
+    word-wrap: break-word;
+    hyphens: auto;
+  }
+
+  .btn-responsive-sm {
+    @apply whitespace-normal text-center leading-tight min-h-[2.25rem] px-3 py-1.5 text-sm;
+    word-wrap: break-word;
+    hyphens: auto;
+  }
+
+  .btn-responsive-lg {
+    @apply whitespace-normal text-center leading-tight min-h-[3rem] px-8 py-3 text-base;
+    word-wrap: break-word;
+    hyphens: auto;
+  }
+
+  /* Custom animations for the solutions page */
+  .card-hover-lift {
+    @apply transition-all duration-300 hover:scale-[1.02] hover:shadow-xl;
+  }
+
+  .filter-tag-active {
+    @apply bg-primary text-primary-foreground shadow-md;
+  }
+
+  .system-card-popular {
+    @apply relative overflow-hidden;
+  }
+
+  .system-card-popular::before {
+    content: '';
+    @apply absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-yellow-400 to-orange-500;
+  }
+
+  .system-card-recommended {
+    @apply relative overflow-hidden;
+  }
+
+  .system-card-recommended::before {
+    content: '';
+    @apply absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-500;
+  }
+
+  /* Smooth transitions for all interactive elements */
+  .interactive-element {
+    @apply transition-all duration-200 ease-out;
+  }
+
+  /* Custom glow effect for selected comparison cards */
+  .comparison-glow {
+    @apply ring-2 ring-primary/50 shadow-lg;
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+  }
+
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Perspectiva 3D para carrossel */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .perspective-2000 {
+    perspective: 2000px;
+  }
+
+  /* Preserve 3D transformations */
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  /* Glassmorphism effects */
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  /* Smooth scrolling for carrossel */
+  .smooth-scroll {
+    scroll-behavior: smooth;
+  }
+
+  /* Prevent text selection during drag */
+  .no-select {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+}

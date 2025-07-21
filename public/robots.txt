@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /resultados
+
+# Sitemap
+Sitemap: https://istitecnologia.com.br/sitemap.xml

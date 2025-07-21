@@ -1,0 +1,124 @@
+// ISTI Solution Flow - Prisma Schema
+// Este schema espelha perfeitamente as tabelas criadas no init.sql
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model ProductCategory {
+  id          String    @id
+  name        String
+  icon        String
+  description String
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  
+  // Relacionamentos
+  products    Product[]
+
+  @@map("product_categories")
+}
+
+model Product {
+  id                  Int      @id @default(autoincrement())
+  category           String
+  name               String
+  price              Decimal  @db.Decimal(10, 2)
+  image              String?
+  images             String[]
+  tags               String[]
+  promotionalBadges  String[] @map("promotional_badges")
+  shortDescription   String   @map("short_description")
+  longDescription    String?  @map("long_description")
+  specifications     Json     @default("[]")
+  createdAt          DateTime @default(now()) @map("created_at")
+  updatedAt          DateTime @updatedAt @map("updated_at")
+
+  // Relacionamentos
+  categoryRef        ProductCategory @relation(fields: [category], references: [id], onDelete: Cascade)
+
+  @@map("products")
+}
+
+model Solution {
+  id               Int      @id @default(autoincrement())
+  name             String
+  icon             String
+  tags             String[]
+  shortDescription String   @map("short_description")
+  longDescription  String   @map("long_description")
+  features         String[]
+  pdfUrl           String   @map("pdf_url")
+  slug             String   @unique
+  maxPdvs          Int?     @map("max_pdvs")
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  @@map("solutions")
+}
+
+model DiagnosticQuestion {
+  id             Int      @id @default(autoincrement())
+  text           String
+  type           String   // 'single', 'multiple', 'contact_form'
+  options        Json     @default("[]")
+  required       Boolean  @default(true)
+  orderIndex     Int      @map("order_index")
+  description    String?
+  conditionField String?  @map("condition_field")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  @@map("diagnostic_questions")
+}
+
+model Recommendation {
+  id                    Int      @id @default(autoincrement())
+  name                  String
+  priority              Int      @default(0)
+  rules                 Json     @default("[]")
+  recommendedSolutions  Int[]    @map("recommended_solutions")
+  recommendedProducts   Int[]    @map("recommended_products")
+  customTitle           String?  @map("custom_title")
+  customText            String   @map("custom_text")
+  isActive              Boolean  @default(true) @map("is_active")
+  createdAt             DateTime @default(now()) @map("created_at")
+  updatedAt             DateTime @updatedAt @map("updated_at")
+
+  @@map("recommendations")
+}
+
+model Lead {
+  id                 Int      @id @default(autoincrement())
+  nome               String
+  empresa            String
+  ramo               String
+  sistemaRecomendado String?  @map("sistema_recomendado")
+  utmSource          String?  @map("utm_source")
+  utmMedium          String?  @map("utm_medium")
+  utmCampaign        String?  @map("utm_campaign")
+  pdfBaixado         Boolean  @default(false) @map("pdf_baixado")
+  whatsapp           String?
+  quizAnswers        Json?    @map("quiz_answers")
+  createdAt          DateTime @default(now()) @map("created_at")
+  updatedAt          DateTime @updatedAt @map("updated_at")
+
+  @@map("leads")
+}
+
+model AdminUser {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  name         String
+  isActive     Boolean  @default(true) @map("is_active")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("admin_users")
+}
